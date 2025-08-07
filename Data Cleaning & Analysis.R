@@ -518,35 +518,3 @@ avg_end_location_membership <- all_trips_cleaned %>%
   arrange(desc(number_of_rides))
 print(avg_end_location_membership)
 write_csv(avg_end_location_membership, "avg_end_location_membership.csv")
-
-# Calculate the average start location coordinates for docked bikes
-avg_start_location_docked <- all_trips_cleaned %>%
-  filter(
-    rideable_type == "docked_bike"
-  ) %>%
-  group_by(start_station_name) %>%
-  summarise(
-    average_start_lng = mean(start_lng),
-    average_start_lat = mean(start_lat),
-    number_of_rides = n(), 
-    .groups = 'drop'
-  ) %>%
-  arrange(desc(number_of_rides))
-print(avg_start_location_docked)
-write_csv(avg_start_location_docked, "avg_start_location_docked.csv")
-
-# Calculate the average end location coordinates for docked bikes
-avg_end_location_docked <- all_trips_cleaned %>%
-  filter(
-    rideable_type == "docked_bike"
-  ) %>%
-  group_by(member_casual, end_station_name) %>%
-  summarise(
-    average_end_lat = mean(end_lat),
-    average_end_lng = mean(end_lng),
-    number_of_rides = n(), 
-    .groups = 'drop'
-  ) %>%
-  arrange(desc(number_of_rides))
-print(avg_end_location_docked)
-write_csv(avg_end_location_docked, "avg_end_location_docked.csv")
